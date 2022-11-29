@@ -1,0 +1,28 @@
+.themeContainer {
+  font-size: 14px;
+  width: auto !important;
+  max-width: 400px !important;
+  background-color: transparent !important;
+
+  & div {
+    & div {
+      background-color: transparent !important;
+
+      & div {
+        & svg {
+          background-color: transparent !important;
+        }
+      }
+
+      & > div {
+        background-color: transparent !important;
+      }
+    }
+
+    & button {
+      & svg {
+        background-color: transparent !important;
+      }
+    }
+  }
+}

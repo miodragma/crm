@@ -1,0 +1,72 @@
+@use "../../scss/mixins";
+@import "../../scss/variables";
+
+.loginWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  @include mixins.pageAnimation;
+
+  & img {
+    max-width: 30rem;
+  }
+
+  & form {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    margin-top: 1rem;
+
+    & p {
+      position: absolute;
+      top: 50px;
+    }
+  }
+
+  & .signUpLoginButton {
+    height: unset;
+    margin-top: 0;
+    padding: 3px 10px;
+    width: 100px;
+    margin-left: auto;
+  }
+
+  & button {
+    height: 50px;
+    margin-top: 2rem;
+    border: unset;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    background: $primaryColor;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+  }
+
+  & button:hover {
+    opacity: 1;
+  }
+
+  & button[disabled] {
+    pointer-events: none;
+  }
+
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.errorMessage {
+  margin: 0;
+  font-size: 0.9rem;
+  color: $danger;
+}
+
+.pleaseWaitMessage {
+  position: absolute;
+  top: 60px;
+}

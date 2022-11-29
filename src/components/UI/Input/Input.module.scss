@@ -1,0 +1,21 @@
+@use '../../../scss/mixins';
+@import "../../../scss/variables";
+
+.inputField {
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  height: 3rem;
+  padding: 1.1rem 2rem;
+  border-top: unset;
+  border-left: unset;
+  border-right: unset;
+  border-bottom: 1px solid $lightColor;
+  width: 100%;
+  color: $darkColor;
+  @include mixins.outlineInput;
+
+}
+
+.errorBorder {
+  @include mixins.errorBorder;
+}

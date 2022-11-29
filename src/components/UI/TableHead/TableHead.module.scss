@@ -1,0 +1,60 @@
+@use '../../../scss/mixins';
+@import '../../../scss/variables';
+
+th {
+  @include mixins.tableDataTableHead;
+  background-color: white;
+  @include mixins.disableSelectText;
+  position: sticky;
+  top: 0;
+}
+
+.thWrapper {
+  display: flex;
+  background-color: $whiteBackground;
+
+  & p {
+    background-color: $whiteBackground;
+    color: #000000;
+  }
+}
+
+.sortByWrapper {
+  position: relative;
+}
+
+.sortByAsc {
+  position: absolute;
+  bottom: 12px;
+  left: 3px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: solid 4px transparent;
+  margin: 4px 4px 0 3px;
+  background: transparent;
+  border-bottom: solid 4px #ccc;
+  border-top-width: 0;
+}
+
+.sortByDesc {
+  position: absolute;
+  top: 7px;
+  left: 3px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: solid 4px transparent;
+  margin: 4px 4px 0 3px;
+  background: transparent;
+  border-top: solid 4px #ccc;
+  border-bottom-width: 0;
+}
+
+.activeDescending {
+  border-top: solid 4px #666;
+}
+
+.activeAscending {
+  border-bottom: solid 4px #666;
+}

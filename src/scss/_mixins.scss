@@ -1,0 +1,114 @@
+@import "./variables";
+
+@mixin reset {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin iconBg {
+  background-color: transparent;
+}
+
+@mixin errorBorder {
+  border-bottom: 1px solid $danger;
+}
+
+@mixin pageAnimation {
+  animation: page-animation 0.2s ease-in;
+}
+
+@keyframes page-animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@mixin programTaskBarButton {
+  border: unset;
+  padding: 3px 10px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+@mixin truncateText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin tableDataTableHead {
+  background-color: transparent;
+  color: #333333;
+  text-align: left;
+  padding: 8px;
+
+  &:not(:first-child) {
+    border-left: 1px solid #cccccc;
+  }
+}
+
+@mixin disableSelectText {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+@mixin outlineInput {
+  &:active, &:focus, &:hover {
+    outline: 0;
+    -webkit-appearance: none;
+    box-shadow: none;
+  }
+}
+
+@mixin disableIcon {
+  pointer-events: none;
+  cursor: alias;
+  fill: #cccccc;
+}
+
+@mixin memberModalContent {
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 16px;
+
+  & h2 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid;
+  }
+}
+
+@mixin modalSaveButton {
+  border: unset;
+  padding: 10px 35px;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  opacity: 0.9;
+  transition: all 0.2s ease;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
