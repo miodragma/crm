@@ -5,7 +5,17 @@ import classes from './Input.module.scss';
 
 const Input = props => {
 
-  const { type, onChangeValue, placeholder, onBlur, isErrorMessage = false, value } = props;
+  const {
+    type,
+    onChangeValue,
+    placeholder,
+    onBlur,
+    isErrorMessage = false,
+    value,
+    name,
+    isBlur = false,
+    disabled = false
+  } = props;
 
   const inputRef = useRef();
 
@@ -14,15 +24,22 @@ const Input = props => {
   }, [value])
 
   const onChangeValueHandler = e => {
-    onChangeValue(e.target.value);
+    if (name) {
+      onChangeValue(e);
+    } else {
+      onChangeValue(e.target.value);
+    }
   }
 
   const onBlurHandler = e => {
-    onBlur(e.target.value);
+    isBlur && onBlur(e.target.value);
   }
 
   return (
     <input
+      disabled={disabled}
+      autoComplete='off'
+      name={name}
       ref={inputRef}
       className={`${classes.inputField} ${isErrorMessage ? classes.errorBorder : ''}`}
       onChange={onChangeValueHandler}

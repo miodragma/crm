@@ -9,7 +9,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(request => {
-  const isAuthorization = request.url.includes('jsonplaceholder') || request.url.includes('signup') || request.url.includes('login');
+  const isAuthorization = request.url.includes('login');
   if (!isAuthorization) {
     request.headers.Authorization = `Bearer ${localStorage.getItem("token")}`
   }

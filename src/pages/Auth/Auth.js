@@ -1,16 +1,18 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import AuthContext from '../../authContext/auth-context';
 import AuthField from '../../components/Auth/AuthField';
 
+import { authFieldsLoginConfig, authFieldsSignupConfig } from '../../config/auth-config';
+
 import { userLogin, userSignup } from '../../components/Auth/store/auth-actions';
 import { authActions } from '../../components/Auth/store/auth.slice';
 
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/logo-cropped.svg';
 
 import classes from './Auth.module.scss';
-import { authFieldsLoginConfig, authFieldsSignupConfig } from '../../config/auth-config';
 
 const Auth = () => {
 
@@ -18,21 +20,30 @@ const Auth = () => {
   const dispatch = useDispatch();
 
   const auth = useSelector(state => state.auth);
-  const { errors, email, name, password, confirmPassword, noMatchPasswordMsg, showPleaseWaitMessage } = auth;
+  const {
+    errors,
+    username,
+    firstName,
+    lastName,
+    password,
+    confirmPassword,
+    noMatchPasswordMsg,
+    showPleaseWaitMessage
+  } = auth;
 
-  const [signUpLoginButtonText, setSignUpLoginButtonText] = useState('Sign Up');
+  const { pathname } = useLocation();
 
   const onSubmit = e => {
     e.preventDefault();
     dispatch(authActions.clearError());
     dispatch(authActions.onChangePleaseWaitMessage(true));
-    if (signUpLoginButtonText !== 'Login') {
+    if (pathname.includes('/login')) {
       dispatch(userLogin({
-        email: email.value,
+        username: username.value,
         password: password.value
       }))
         .then(res => {
-          login(res.payload.user.token);
+          login({ token: res.payload.user.token, user: res.payload.user });
           dispatch(authActions.onChangePleaseWaitMessage(false));
           dispatch(authActions.clearState());
         })
@@ -42,13 +53,13 @@ const Auth = () => {
         })
     } else {
       dispatch(userSignup({
-        email: email.value,
         password: password.value,
         confirmPassword: confirmPassword.value,
-        name: name.value
+        username: username.value,
+        firstName: firstName.value,
+        lastName: lastName.value
       }))
         .then(res => {
-          onChangeSignUpLoginHandler()
           logout();
           dispatch(authActions.onChangePleaseWaitMessage(false));
           dispatch(authActions.clearState());
@@ -59,19 +70,6 @@ const Auth = () => {
         })
     }
   }
-
-  const onChangeSignUpLoginHandler = () => {
-    dispatch(authActions.clearError());
-    dispatch(authActions.clearState());
-    dispatch(authActions.onChangePleaseWaitMessage(false));
-    setSignUpLoginButtonText(prevState => {
-      if (prevState === 'Sign Up') {
-        return 'Login'
-      } else {
-        return 'Sign Up'
-      }
-    })
-  };
 
   const apiErrors = errors?.map((error, index) => {
     return (
@@ -113,19 +111,20 @@ const Auth = () => {
 
         {fieldsLogin}
 
-        {signUpLoginButtonText !== 'Sign Up' && fieldsSignup}
+        {pathname.includes('/create-user') && fieldsSignup}
 
-        <button onClick={onChangeSignUpLoginHandler} className={classes.signUpLoginButton}
-                type='button'>{signUpLoginButtonText}</button>
         {
-          signUpLoginButtonText !== 'Login' ?
+          pathname.includes('/login') ?
             <button
-              disabled={email.isRequiredMessage || password.isRequiredMessage || !email.value || !password.value}
+              disabled={username.isRequiredMessage || password.isRequiredMessage || !username.value || !password.value}
               type='submit'>Login
             </button> :
             <button
-              disabled={email.isRequiredMessage || name.isRequiredMessage || password.isRequiredMessage || confirmPassword.isRequiredMessage || !email.value || !name.value || !password.value || !confirmPassword.value}
-              type='submit'>Sign Up
+              disabled={
+                username.isRequiredMessage || firstName.isRequiredMessage || lastName.isRequiredMessage || password.isRequiredMessage || confirmPassword.isRequiredMessage ||
+                !username.value || !firstName.value || !lastName.value || !password.value || !confirmPassword.value
+              }
+              type='submit'>Create user
             </button>
         }
 

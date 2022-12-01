@@ -6,8 +6,6 @@ import Input from '../UI/Input/Input';
 import eye from '../../assets/eye.png';
 import eyeInvisible from '../../assets/eye-invisible.png';
 
-import { validateEmail } from '../../utils/validateEmail';
-
 import { authActions } from './store/auth.slice';
 
 import classes from './AuthField.module.scss';
@@ -44,10 +42,6 @@ const AuthField = props => {
     let trimValue = value.trim();
     let isRequiredMessage = !trimValue;
 
-    if (keyType === 'email') {
-      trimValue = trimValue.toLowerCase();
-      isRequiredMessage = !(validateEmail(trimValue) && !!trimValue);
-    }
     if (keyType === 'password' || keyType === 'confirmPassword') {
       dispatch(authActions.onChangeValue({
         keyType,
@@ -84,6 +78,7 @@ const AuthField = props => {
   return (
     <Fragment>
       <Input
+        isBlur={true}
         value={value}
         isErrorMessage={isRequiredMessage}
         onBlur={onChangeValueHandler}

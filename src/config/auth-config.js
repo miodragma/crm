@@ -1,11 +1,11 @@
 export const authFieldsLoginConfig = [
   {
     id: '1234',
-    keyType: 'email',
+    keyType: 'username',
     isEyeContent: false,
-    placeholder: 'Email',
-    type: 'email',
-    errorMessage: 'Email address is required'
+    placeholder: 'Username',
+    type: 'text',
+    errorMessage: 'Username is required with minimum 5 length'
   },
   {
     id: '2345',
@@ -13,7 +13,7 @@ export const authFieldsLoginConfig = [
     isEyeContent: true,
     placeholder: 'Password',
     type: 'password',
-    errorMessage: 'Password is required'
+    errorMessage: 'Password is required with minimum 5 length'
   }
 ];
 
@@ -28,9 +28,16 @@ export const authFieldsSignupConfig = [
   },
   {
     id: '4567',
-    keyType: 'name',
-    placeholder: 'Name',
+    keyType: 'firstName',
+    placeholder: 'First name',
     type: 'text',
-    errorMessage: 'Name is required'
+    errorMessage: 'First name is required with minimum 5 length'
+  },
+  {
+    id: '4261',
+    keyType: 'lastName',
+    placeholder: 'Last name',
+    type: 'text',
+    errorMessage: 'Last name is required with minimum 5 length'
   }
 ];

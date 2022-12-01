@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 const AuthContext = React.createContext({
   isAuth: false,
-  login: (token) => {
+  isAdmin: false,
+  isSetData: false,
+  login: ({ token, user }) => {
   },
   logout: () => {
   }
@@ -11,8 +13,12 @@ const AuthContext = React.createContext({
 export const AuthContextProvider = props => {
 
   const [isAuth, setIsAuth] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isSetData, setIsSetData] = useState(false);
 
   const userIsAuth = !!isAuth;
+  const userIsAdmin = !!isAdmin;
+  const userIsSetData = !!isSetData;
 
   const setAutoLogout = milliseconds => {
     setTimeout(() => {
@@ -20,8 +26,10 @@ export const AuthContextProvider = props => {
     }, milliseconds);
   }
 
-  const loginHandler = (token) => {
+  const loginHandler = ({ token, user }) => {
     setIsAuth(true);
+    setIsAdmin(user.isAdmin);
+    setIsSetData(true);
     localStorage.setItem('token', token);
     const jwtPayload = JSON.parse(window.atob(token.split('.')[1]))
     const remainingMilliseconds = (jwtPayload.exp - jwtPayload.iat) * 1000;
@@ -30,12 +38,16 @@ export const AuthContextProvider = props => {
 
   const logoutHandler = () => {
     setIsAuth(false);
+    setIsAdmin(false);
+    setIsSetData(true);
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
   }
 
   const contextValue = {
     isAuth: userIsAuth,
+    isAdmin: userIsAdmin,
+    isSetData: userIsSetData,
     login: loginHandler,
     logout: logoutHandler
   }

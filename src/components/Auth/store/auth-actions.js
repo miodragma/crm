@@ -11,7 +11,7 @@ export const userLogin = user => {
 
     try {
       const { data: userData } = await loginUser();
-      dispatch(loaderActions.showToast({ toastMessage: `Welcome ${userData.user.name}`, type: 'success' }))
+      dispatch(loaderActions.showToast({ toastMessage: `Welcome ${userData.user.username}`, type: 'success' }))
       return dispatch(authActions.login(userData));
     } catch (err) {
       const { data, message } = err.response.data
@@ -38,7 +38,10 @@ export const userSignup = user => {
 
     try {
       const { data: userData } = await signupUser();
-      dispatch(loaderActions.showToast({ toastMessage: `${userData.user.name} please login.`, type: 'error' }))
+      dispatch(loaderActions.showToast({
+        toastMessage: `User '${userData.user.username}' is created.`,
+        type: 'success'
+      }))
       return dispatch(authActions.signup(userData));
     } catch (err) {
       const { data, message } = err.response.data

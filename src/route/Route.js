@@ -10,11 +10,11 @@ const Home = React.lazy(() => import('../pages/Home/Home'));
 
 const Routes = () => {
 
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth, isAdmin, isSetData } = useContext(AuthContext);
 
   return (
-    <Suspense fallback={<div/>}>
-      <Switch>
+    <Suspense fallback={<div/>}>{
+      isSetData && <Switch>
         <Route path='/' exact>
           <Redirect to={`/${routeConstants.HOME}`}/>
         </Route>
@@ -28,10 +28,17 @@ const Routes = () => {
           {!isAuth && <Redirect to={`/${routeConstants.LOGIN}`}/>}
         </Route>
 
+        <Route path={`/${routeConstants.CREATE_USER}`}>
+          {isAuth && isAdmin && <Auth/>}
+          {isAuth && !isAdmin && <Redirect to={`/${routeConstants.HOME}`}/>}
+          {!isAuth && <Redirect to={`/${routeConstants.LOGIN}`}/>}
+        </Route>
+
         <Route path='*'>
           <Redirect to='/'/>
         </Route>
       </Switch>
+    }
     </Suspense>
   )
 };

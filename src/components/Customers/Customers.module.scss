@@ -1,0 +1,146 @@
+@use '../../scss/mixins';
+@import "../../scss/variables";
+
+.customersContentWrapper {
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  border: 1px solid $primaryColor;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.customersContent {
+  height: 300px;
+  overflow-y: scroll;
+
+  & table {
+    border-collapse: collapse;
+    width: 100%;
+
+    & thead {
+      position: sticky;
+      top: -1px;
+    }
+  }
+
+  & td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  & th {
+    background-color: $lightColor;
+    color: $primaryColor;
+  }
+
+  & tr {
+    cursor: pointer;
+    height: 40px;
+
+    &:hover {
+      background-color: #cccccc;
+    }
+
+    &:nth-child(odd) {
+      background-color: #e9e9e9;
+
+      &:hover {
+        background-color: #cccccc;
+      }
+    }
+
+    & td:nth-of-type(3) {
+      text-align: center;
+      padding: 0;
+    }
+
+    transition: all 100ms ease;
+
+  }
+}
+
+.inputsContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  & input {
+    max-width: 250px;
+    margin-top: 1rem;
+  }
+}
+
+.paginationContent {
+  @include mixins.disableSelectText;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px 20px 0 5px;
+
+  & div {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.pageInput {
+  margin: 0 7px;
+  border-radius: 12px;
+  border: unset;
+  padding: 5px 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  color: $darkColor;
+  @include mixins.outlineInput;
+}
+
+.pageableButtons {
+  margin-right: 5px;
+
+  & img {
+    margin-right: 15px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 35px;
+    transition: all 200ms ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &.disablePageButton {
+      opacity: 0.4;
+      pointer-events: none;
+      @include mixins.disableSelectText;
+
+      &:hover {
+        transform: unset;
+      }
+    }
+  }
+}
+
+.resetButton {
+  float: right;
+  margin: 16px 16px 0 0;
+  font-size: 1rem;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid $primaryColor;
+  padding: 5px 10px;
+  border-radius: 6px;
+  color: $primaryColor;
+  cursor: pointer;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+}
+
+.checkmark {
+  padding-top: 14px !important;
+  text-align: center !important;
+
+  & img {
+    box-shadow: rgb(99 99 99 / 20%) 0 2px 8px 0;
+    border-radius: 50%;
+    width: 20px;
+  }
+}

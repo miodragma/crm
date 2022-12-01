@@ -6,8 +6,9 @@ const authSlice = createSlice({
     user: null,
     errors: [],
     signupUser: null,
-    email: {},
-    name: {},
+    username: {},
+    firstName: {},
+    lastName: {},
     password: { onEyePassword: false },
     confirmPassword: { onEyePassword: false },
     noMatchPasswordMsg: false,
@@ -27,8 +28,9 @@ const authSlice = createSlice({
       state.errors = [];
     },
     clearState(state, action) {
-      state.email = {};
-      state.name = {};
+      state.username = {};
+      state.firstName = {};
+      state.lastName = {};
       state.password = { onEyePassword: false };
       state.confirmPassword = { onEyePassword: false };
       state.noMatchPasswordMsg = false;

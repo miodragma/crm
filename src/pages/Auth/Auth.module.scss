@@ -4,14 +4,15 @@
 .loginWrapper {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   height: 100vh;
+  margin-top: 40px;
   @include mixins.pageAnimation;
 
   & img {
-    max-width: 30rem;
+    max-width: 9rem;
   }
 
   & form {
@@ -41,6 +42,7 @@
     border-radius: 4px;
     font-size: 1.2rem;
     background: $primaryColor;
+    color: $lightColor;
     cursor: pointer;
     opacity: 0.8;
     transition: all 0.3s ease;
@@ -68,5 +70,5 @@
 
 .pleaseWaitMessage {
   position: absolute;
-  top: 60px;
+  top: 23px;
 }

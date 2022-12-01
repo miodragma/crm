@@ -28,7 +28,7 @@ const App = () => {
     dispatch(authActions.onChangePleaseWaitMessage(true));
     dispatch(getUser())
       .then(res => {
-        login(res.payload.user.token);
+        login({ token: res.payload.user.token, user: res.payload.user });
         dispatch(authActions.onChangePleaseWaitMessage(false));
       })
       .catch(err => {

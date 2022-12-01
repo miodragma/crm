@@ -1,0 +1,202 @@
+@use '../../scss/mixins';
+@import "../../scss/variables";
+
+.modalHeaderContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+
+  & div {
+    display: flex;
+    align-items: center;
+
+    & p {
+      margin-right: 10px;
+    }
+  }
+}
+
+.addNewCustomerContent {
+  padding: 32px;
+
+  & h2 {
+    margin-bottom: 16px;
+  }
+
+  & form {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+
+  & label {
+    margin-left: 10px;
+    font-size: 1.1rem;
+  }
+
+  & input {
+    width: 300px;
+    margin-top: 7px;
+  }
+}
+
+textarea {
+  outline: none;
+  resize: none;
+  box-shadow: rgb(100 100 111 / 20%) 0 7px 29px 0;
+  border: unset;
+  width: 500px;
+  height: 270px;
+  padding: 1rem;
+  margin-top: 7px;
+}
+
+.noteAndSubmit {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  & button {
+    box-shadow: rgb(0 0 0 / 9%) 0 3px 12px;
+    border: 1px solid transparent;
+    padding: 10px 30px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    background-color: $primaryColor;
+    color: $lightColor;
+    cursor: pointer;
+    transition: all 200ms ease;
+
+    &[disabled] {
+      pointer-events: none;
+      opacity: 0.6;
+      @include mixins.disableSelectText
+    }
+  }
+
+  & button:hover {
+    background-color: $lightColor;
+    color: $primaryColor;
+    border: 1px solid $primaryColor;
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+
+  &:checked + .slider {
+    background-color: $primaryColor;
+  }
+
+  &:focus + .slider {
+    box-shadow: 0 0 1px $primaryColor;
+  }
+
+  &:checked + .slider:before {
+    -webkit-transform: translateX(14px);
+    -ms-transform: translateX(14px);
+    transform: translateX(14px);
+  }
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.notesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 520px;
+
+  & img {
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 35px;
+    transition: all 200ms ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.customerNoteContent {
+  max-height: 53px;
+  overflow: hidden;
+  padding: 10px;
+  margin-top: 16px;
+  border-radius: 7px;
+  border: unset;
+  box-shadow: rgb(0 0 0 / 10%) 0 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+  @include mixins.disableSelectText;
+  transition: all 400ms ease-in;
+
+  & div {
+    cursor: pointer;
+    color: $primaryColor;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+
+    &:hover {
+      color: $primaryDark;
+    }
+  }
+
+  &.expandedCustomer {
+    max-height: 520px;
+    transition: all 400ms ease-in;
+  }
+}
+
+.notesWrapper {
+  padding: 16px;
+  border: 1px solid $greyColor;
+  border-radius: 7px;
+}
