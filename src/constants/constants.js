@@ -1,6 +1,6 @@
 const prod = {
   url: {
-    BASE_URL: 'https://mord-os-api.herokuapp.com',
+    BASE_URL: 'https://oxxon.herokuapp.com',
   }
 };
 const dev = {
