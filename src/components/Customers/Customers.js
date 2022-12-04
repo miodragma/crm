@@ -173,9 +173,9 @@ const Customers = props => {
               <th>Telephone</th>
               <th>Email</th>
               <th>City</th>
-              <th>Is Paid</th>
+              <th>Paid</th>
               {typeSettings === 'allCustomersSettings' && <th>Contact at</th>}
-              {typeSettings === 'potentialCustomersSettings' && <th>Is contacted</th>}
+              {typeSettings === 'potentialCustomersSettings' && <th>Contacted - today</th>}
             </tr>
             </thead>
             <tbody>
