@@ -67,6 +67,38 @@
   -ms-user-select: none;
 }
 
+@mixin inputField {
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  height: 3rem;
+  padding: 1.1rem 2rem;
+  border-radius: 12px;
+  border-top: unset;
+  border-left: unset;
+  border-right: unset;
+  border-bottom: 1px solid $greyColor;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  width: 100%;
+  color: $darkColor;
+  @include outlineInput;
+}
+
+@mixin inputWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+
+  & label {
+    margin-left: 10px;
+    font-size: 1.1rem;
+  }
+
+  & input {
+    width: 300px;
+    margin-top: 7px;
+  }
+}
+
 @mixin outlineInput {
   &:active, &:focus, &:hover {
     outline: 0;
@@ -109,5 +141,29 @@
   &:disabled {
     pointer-events: none;
     opacity: 0.5;
+  }
+}
+
+@mixin buttonCreate {
+  border: 1px solid transparent;
+  padding: 10px 30px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  background-color: $primaryColor;
+  color: $lightColor;
+  cursor: pointer;
+  box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;
+  transition: all 200ms ease;
+
+  &[disabled] {
+    pointer-events: none;
+    opacity: 0.6;
+    @include disableSelectText
+  }
+
+  &:hover {
+    background-color: $lightColor;
+    color: $primaryColor;
+    border: 1px solid $primaryColor;
   }
 }

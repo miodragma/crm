@@ -1,0 +1,26 @@
+@use '../../scss/mixins';
+@import "../../scss/variables";
+
+.settingsContent {
+  padding: 32px;
+  @include mixins.pageAnimation;
+}
+
+.settingsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 64px;
+
+  h1 {
+    color: $primaryDark;
+    margin-bottom: 16px;
+    border-bottom: 1px solid;
+    width: max-content;
+    padding: 0 10px 5px 10px;
+  }
+
+  & button {
+    @include mixins.buttonCreate;
+  }
+}

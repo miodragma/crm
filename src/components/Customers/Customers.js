@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import Input from '../UI/Input/Input';
 
-import { customersActions } from './store/customers.slice';
+import { customersActions } from './store/customers-slice';
 
 import { dateToTimestamp, getDateData, timestampToDate } from '../../utils/dateToTimestamp';
 
@@ -12,12 +12,16 @@ import downIcon from '../../assets/down.png';
 import checkmark from '../../assets/checkmark.png';
 
 import classes from './Customers.module.scss';
+import CityInput from '../UI/CityInput/CityInput';
+import Dropdown from '../UI/Dropdown/Dropdown';
 
 export const initialState = {
   firstName: '',
   lastName: '',
   telephone: '',
   email: '',
+  city: '',
+  isPaid: '',
   remindOn: ''
 }
 
@@ -52,6 +56,8 @@ const Customers = props => {
         <td>{customer.lastName}</td>
         <td>{customer.telephone}</td>
         <td>{customer.email}</td>
+        <td>{customer.city}</td>
+        <td className={classes.checkmark}>{customer.isPaid && <img src={checkmark} alt="checkmark"/>}</td>
         {typeSettings === 'allCustomersSettings' && <td>{customer.remindOn && timestampToDate(customer.remindOn)}</td>}
         {typeSettings === 'potentialCustomersSettings' &&
           <td className={classes.checkmark}>{isContacted(customer) && <img src={checkmark} alt="checkmark"/>}</td>}
@@ -94,10 +100,10 @@ const Customers = props => {
     }
   };
 
-  const getSuggestions = useCallback((e) => {
+  const getSuggestions = useCallback(({ target }) => {
     setPage(1)
-    const name = e.target.name;
-    const value = e.target.value.trim();
+    const name = target.name;
+    const value = target.value.trim();
 
     const data = {
       type: typeSettings,
@@ -111,10 +117,26 @@ const Customers = props => {
     dispatch(customersActions.onChangeSettingsValue(data));
   }, [dispatch, typeSettings]);
 
+  const onChangeCityValue = useCallback(value => {
+    clearTimeout(debounceTimer.current);
+    debounceTimer.current = setTimeout(
+      getSuggestions.bind(null, { target: { value, name: 'city' } }),
+      400
+    )
+  }, [getSuggestions]);
+
   const onChangeSettingsValue = useCallback(e => {
     clearTimeout(debounceTimer.current);
     debounceTimer.current = setTimeout(
       getSuggestions.bind(null, e),
+      400
+    )
+  }, [getSuggestions]);
+
+  const onChangePaidValue = useCallback(value => {
+    clearTimeout(debounceTimer.current);
+    debounceTimer.current = setTimeout(
+      getSuggestions.bind(null, { target: { value, name: 'isPaid' } }),
       400
     )
   }, [getSuggestions]);
@@ -135,6 +157,8 @@ const Customers = props => {
         <Input onChangeValue={onChangeSettingsValue} value={state.telephone} name='telephone' placeholder='Telephone'
                type='text'/>
         <Input onChangeValue={onChangeSettingsValue} value={state.email} name='email' placeholder='Email' type='email'/>
+        <CityInput changeCity={onChangeCityValue} isLabel={false} className={classes.citiesSearch} value={state.city}/>
+        <Dropdown onChangePaidValue={onChangePaidValue}/>
         {typeSettings === 'allCustomersSettings' &&
           <Input onChangeValue={onChangeSettingsValue} value={state.remindOn} name='remindOn' placeholder='RemindOn'
                  type='date'/>}
@@ -148,8 +172,10 @@ const Customers = props => {
               <th>Last name</th>
               <th>Telephone</th>
               <th>Email</th>
+              <th>City</th>
+              <th>Is Paid</th>
               {typeSettings === 'allCustomersSettings' && <th>Contact at</th>}
-              {typeSettings === 'potentialCustomersSettings' && <th>Is he contacted</th>}
+              {typeSettings === 'potentialCustomersSettings' && <th>Is contacted</th>}
             </tr>
             </thead>
             <tbody>

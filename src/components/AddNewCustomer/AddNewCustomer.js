@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Input from '../UI/Input/Input';
+import CityInput from '../UI/CityInput/CityInput';
 
 import { dateToTimestamp, formatTime, getDateData, timestampToDate } from '../../utils/dateToTimestamp';
 import { customerModalFormFields } from '../../config/customer-modal-form-fields';
@@ -22,6 +23,8 @@ const AddNewCustomer = props => {
     lastName: '',
     telephone: '',
     email: '',
+    isPaid: false,
+    city: '',
     notes: [],
     remindOn: ''
   });
@@ -42,6 +45,8 @@ const AddNewCustomer = props => {
         lastName: customer.lastName,
         telephone: customer.telephone,
         email: customer.email,
+        isPaid: customer.isPaid,
+        city: customer.city,
         notes: customer.notes,
         remindOn
       })
@@ -76,7 +81,7 @@ const AddNewCustomer = props => {
 
   const onChangeValue = useCallback(e => {
     setIsChangeCustomerData(true);
-    const value = e.target.value;
+    const value = e.target.value.trim();
     const name = e.target.name
     if (name === 'notes' && !customerId) {
       setState(prevState => ({
@@ -138,13 +143,24 @@ const AddNewCustomer = props => {
 
   const isDisabled = (!(state.firstName || state.lastName || state.telephone) || (customerId && !editMode && !isChangeCustomerData));
 
-  const customerFormFields = customerModalFormFields.map(field => <div key={field.name}
-                                                                       className={classes.inputWrapper}>
-    <label>{field.label}</label>
-    <Input disabled={!editMode && customerId} type={field.type} name={field.name} value={state[field.name]}
-           placeholder={field.label}
-           onChangeValue={onChangeValue}/>
-  </div>)
+  const customerFormFields = customerModalFormFields.map(field => {
+    return (
+      <div key={field.name} className={classes.inputWrapper}>
+        <label>{field.label}</label>
+        <Input disabled={!editMode && customerId} type={field.type} name={field.name} value={state[field.name]}
+               placeholder={field.label}
+               onChangeValue={onChangeValue}/>
+      </div>)
+  })
+
+  const onChangeCityHandler = useCallback(value => {
+    setIsChangeCustomerData(true);
+    setState({ ...state, city: value });
+  }, [state]);
+
+  const onChangeIsPaidHandler = e => {
+    setState({ ...state, isPaid: e.target.checked })
+  }
 
   return (
     <div className={classes.addNewCustomerContent}>
@@ -160,6 +176,15 @@ const AddNewCustomer = props => {
       </div>
       <form onSubmit={onSubmitNewCustomerHandler}>
         {customerFormFields}
+        <CityInput disabled={!editMode && customerId} className={classes.inputWrapper} changeCity={onChangeCityHandler}
+                   value={state.city}/>
+        <div className={classes.isPaidContent}>
+          <label className={`${classes.isPaidContainer} ${(!editMode && customerId) && classes.disabledSpan}`}>Is Paid
+            <input disabled={!editMode && customerId} type='checkbox' checked={state.isPaid}
+                   onChange={onChangeIsPaidHandler}/>
+            <span className={`${classes.checkmark} ${(!editMode && customerId) && classes.disabledSpan}`}></span>
+          </label>
+        </div>
       </form>
       <div className={classes.noteAndSubmit}>
         <div className={customerId && classes.notesWrapper}>

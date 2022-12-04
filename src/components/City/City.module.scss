@@ -1,0 +1,45 @@
+@use "../../scss/mixins";
+@import "../../scss/variables";
+
+.settingsCard {
+  box-shadow: rgb(0 0 0 / 24%) 0 3px 8px;
+  border: 1px solid #20b79d;
+  border-radius: 4px;
+  padding: 16px;
+  max-width: 50%;
+
+  h2 {
+    color: $primaryDark;
+    margin-bottom: 16px;
+  }
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+
+  & label {
+    margin-left: 10px;
+    font-size: 1.1rem;
+  }
+
+  & input {
+    width: 300px;
+    margin-top: 7px;
+  }
+
+  & div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & input {
+      margin-bottom: 0;
+    }
+
+    & button {
+      @include mixins.buttonCreate;
+    }
+  }
+}

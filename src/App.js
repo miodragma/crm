@@ -9,7 +9,7 @@ import AuthContext from './authContext/auth-context';
 import axiosConfig from './axios/axiosConfig';
 
 import { getUser } from './components/Auth/store/auth-actions';
-import { authActions } from './components/Auth/store/auth.slice';
+import { authActions } from './components/Auth/store/auth-slice';
 
 const App = () => {
 

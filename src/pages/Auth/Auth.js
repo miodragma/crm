@@ -8,7 +8,7 @@ import AuthField from '../../components/Auth/AuthField';
 import { authFieldsLoginConfig, authFieldsSignupConfig } from '../../config/auth-config';
 
 import { userLogin, userSignup } from '../../components/Auth/store/auth-actions';
-import { authActions } from '../../components/Auth/store/auth.slice';
+import { authActions } from '../../components/Auth/store/auth-slice';
 
 import logo from '../../assets/logo-cropped.svg';
 

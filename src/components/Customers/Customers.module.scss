@@ -62,11 +62,13 @@
 .inputsContent {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 
   & input {
     max-width: 250px;
     margin-top: 1rem;
+    margin-right: 1rem;
   }
 }
 
@@ -142,5 +144,20 @@
     box-shadow: rgb(99 99 99 / 20%) 0 2px 8px 0;
     border-radius: 50%;
     width: 20px;
+  }
+}
+
+.citiesSearch {
+  margin-bottom: 0.6rem;
+
+  & input {
+    margin-top: 0;
+  }
+
+  & div {
+    top: 55px;
+    z-index: 10;
+    width: 95%;
+    background: $lightColor;
   }
 }

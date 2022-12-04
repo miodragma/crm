@@ -1,9 +1,11 @@
+@use "../../scss/mixins";
 @import "../../scss/variables";
 
 .home {
   overflow-y: auto;
   height: 93vh;
-  padding: 30px 30px 100px 30px;
+  padding: 32px 32px 100px 32px;
+  @include mixins.pageAnimation;
 
   & h1 {
     color: $primaryColor;
@@ -23,6 +25,10 @@
   align-items: center;
   justify-content: space-between;
 
+  & h1 {
+    color: $primaryDark;
+  }
+
   & img {
     width: 50px;
     cursor: pointer;
@@ -36,6 +42,10 @@
 
 .potentialCustomersHeader {
   display: flex;
+
+  & h1 {
+    color: $primaryDark;
+  }
 
   & sup {
     color: $primaryColor;

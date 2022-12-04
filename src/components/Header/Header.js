@@ -26,12 +26,12 @@ const Header = () => {
           <NavLink
             className={classes.link}
             to={`/${routeConstants.HOME}`}
-            activeClassName={classes.activeLink}>Home
+            activeClassName={classes.activeLink}>Dashboard
           </NavLink>
           {isAdmin && <NavLink
             className={classes.link}
-            to={`/${routeConstants.CREATE_USER}`}
-            activeClassName={classes.activeLink}>Create user
+            to={`/${routeConstants.SETTINGS}`}
+            activeClassName={classes.activeLink}>Settings
           </NavLink>}
         </div>
         <div>

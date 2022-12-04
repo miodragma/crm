@@ -6,7 +6,7 @@ import Input from '../UI/Input/Input';
 import eye from '../../assets/eye.png';
 import eyeInvisible from '../../assets/eye-invisible.png';
 
-import { authActions } from './store/auth.slice';
+import { authActions } from './store/auth-slice';
 
 import classes from './AuthField.module.scss';
 

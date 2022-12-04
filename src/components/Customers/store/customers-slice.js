@@ -7,7 +7,9 @@ const customersSettings = {
   firstName: '',
   lastName: '',
   telephone: '',
-  email: ''
+  email: '',
+  isPaid: 'all',
+  city: ''
 }
 
 const customersPaging = {

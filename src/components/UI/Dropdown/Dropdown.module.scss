@@ -1,0 +1,39 @@
+@use "../../../scss/mixins";
+@import "../../../scss/variables";
+
+.dropdownInputContent {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.inputField {
+  @include mixins.inputField;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.dropdownContent {
+  position: absolute;
+  z-index: 10;
+  top: 70px;
+  width: 95%;
+  max-height: 170px;
+  padding: 10px 0;
+  border-radius: 12px;
+  box-shadow: rgb(0 0 0 / 35%) 0 5px 15px;
+  overflow: auto;
+  background: $lightColor;
+  @include mixins.disableSelectText;
+
+  & p {
+    cursor: pointer;
+    padding: 5px 15px;
+    font-size: 1rem;
+    transition: all 200ms ease-out;
+
+    &:hover {
+      transition: all 200ms ease-in;
+      background-color: #cccccc;
+    }
+  }
+}

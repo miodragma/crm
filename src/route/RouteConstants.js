@@ -1,5 +1,6 @@
 const LOGIN = 'login';
 const CREATE_USER = 'create-user';
-const HOME = 'home';
+const SETTINGS = 'settings';
+const HOME = 'dashboard';
 
-export { LOGIN, HOME, CREATE_USER };
+export { LOGIN, HOME, CREATE_USER, SETTINGS };

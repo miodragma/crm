@@ -2,19 +2,7 @@
 @import "../../../scss/variables";
 
 .inputField {
-  margin-bottom: 2rem;
-  font-size: 1.2rem;
-  height: 3rem;
-  padding: 1.1rem 2rem;
-  border-radius: 12px;
-  border-top: unset;
-  border-left: unset;
-  border-right: unset;
-  border-bottom: 1px solid $greyColor;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  width: 100%;
-  color: $darkColor;
-  @include mixins.outlineInput;
+  @include mixins.inputField;
 }
 
 .errorBorder {

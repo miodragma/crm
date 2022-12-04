@@ -1,6 +1,6 @@
 import axiosConfig from '../../../axios/axiosConfig';
 
-import { authActions } from './auth.slice';
+import { authActions } from './auth-slice';
 import { loaderActions } from '../../UI/Toast/store/loader/loader-slice';
 
 export const userLogin = user => {

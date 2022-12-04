@@ -1,3 +1,4 @@
+@use '../../scss/mixins';
 @import "../../scss/variables";
 
 .header {
@@ -7,15 +8,17 @@
   padding: 0 30px;
   height: 60px;
   width: 100%;
-  background-color: $primaryColor;
+  background: rgb(45, 107, 109);
+  background: linear-gradient(90deg, rgba(45, 107, 109, 1) 0%, rgba(32, 183, 157, 1) 100%);
   color: $lightColor;
+  @include mixins.disableSelectText;
 
   & div {
     background-color: transparent;
   }
 
   & img {
-    background-color: $primaryColor;
+    background-color: transparent;
     width: 35px;
 
     &:hover {
@@ -24,9 +27,9 @@
   }
 
   & .link {
-    color: $greyColor;
+    color: #cccccc;
     font-size: 1.2rem;
-    background-color: $primaryColor;
+    background-color: transparent;
     text-decoration: unset;
     border-bottom: 1px solid transparent;
     margin-right: 25px;

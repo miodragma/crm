@@ -12,12 +12,15 @@ import {
   getAllCustomers,
   getAllPotentialCustomers
 } from '../../components/Customers/store/customers-actions';
+import { fetchAllCities } from '../../components/City/store/city-actions';
 
 import addIcon from '../../assets/add.png';
 
 import { dateToTimestamp } from '../../utils/dateToTimestamp';
 
 import classes from './Home.module.scss';
+
+let isMounted = false;
 
 const Home = () => {
 
@@ -26,6 +29,13 @@ const Home = () => {
   const customers = useSelector(state => state.customers);
   const { allCustomersSettings, potentialCustomersSettings } = customers;
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!isMounted) {
+      dispatch(fetchAllCities());
+      isMounted = true;
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(getAllCustomers(allCustomersSettings))

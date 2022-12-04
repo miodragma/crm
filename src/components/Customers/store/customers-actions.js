@@ -1,7 +1,7 @@
 import axiosConfig from '../../../axios/axiosConfig';
 
 import { loaderActions } from '../../UI/Toast/store/loader/loader-slice';
-import { customersActions } from './customers.slice';
+import { customersActions } from './customers-slice';
 
 export const createCustomer = data => {
   return async dispatch => {
@@ -11,7 +11,7 @@ export const createCustomer = data => {
 
     try {
       const { data: customerData } = await onCreateCustomer();
-      dispatch(loaderActions.showToast({ toastMessage: `Customer successfully created`, type: 'success' }))
+      dispatch(loaderActions.showToast({ toastMessage: `Customer successfully created`, type: 'success' }));
       return dispatch(customersActions.createNewCustomer(customerData.customer));
     } catch (err) {
       console.log(err)
