@@ -17,6 +17,7 @@ const AddNewCustomer = props => {
   const { id: customerId } = customer;
 
   const { user: { fullName } } = useSelector(state => state.auth);
+  const isLoader = useSelector(state => state.loader.isLoader);
 
   const [state, setState] = useState({
     firstName: '',
@@ -141,7 +142,7 @@ const AddNewCustomer = props => {
     {customerNotes}
   </div>;
 
-  const isDisabled = (!(state.firstName || state.lastName || state.telephone) || (customerId && !editMode && !isChangeCustomerData));
+  const isDisabled = (!(state.firstName || state.lastName || state.telephone) || (customerId && !editMode && !isChangeCustomerData)) || isLoader;
 
   const customerFormFields = customerModalFormFields.map(field => {
     return (

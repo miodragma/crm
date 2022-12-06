@@ -5,6 +5,7 @@ import { customersActions } from './customers-slice';
 
 export const createCustomer = data => {
   return async dispatch => {
+    dispatch(loaderActions.setLoaderData(true))
     const onCreateCustomer = async () => {
       return axiosConfig.put('/customer/create', data);
     };
@@ -12,9 +13,11 @@ export const createCustomer = data => {
     try {
       const { data: customerData } = await onCreateCustomer();
       dispatch(loaderActions.showToast({ toastMessage: `Customer successfully created`, type: 'success' }));
+      dispatch(loaderActions.setLoaderData(false))
       return dispatch(customersActions.createNewCustomer(customerData.customer));
     } catch (err) {
       console.log(err)
+      dispatch(loaderActions.setLoaderData(false));
       throw err;
     }
   }
@@ -22,6 +25,7 @@ export const createCustomer = data => {
 
 export const editCustomer = data => {
   return async dispatch => {
+    dispatch(loaderActions.setLoaderData(true));
     const onEditCustomer = async () => {
       return axiosConfig.post('/customer/edit', data);
     };
@@ -29,9 +33,11 @@ export const editCustomer = data => {
     try {
       const { data: customerData } = await onEditCustomer();
       dispatch(loaderActions.showToast({ toastMessage: `Customer successfully updated`, type: 'success' }))
+      dispatch(loaderActions.setLoaderData(false));
       return dispatch(customersActions.updateCustomer(customerData.customer));
     } catch (err) {
       console.log(err)
+      dispatch(loaderActions.setLoaderData(false));
       throw err;
     }
   }
