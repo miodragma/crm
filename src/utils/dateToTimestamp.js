@@ -7,7 +7,7 @@ export const dateToTimestamp = value => {
 export const getDateData = value => {
   const currValue = new Date(value);
   currValue.setHours(0, 0, 0, 0);
-  const month = currValue.getMonth() + 1;
+  const month = ("0" + (currValue.getMonth() + 1)).slice(-2);
   const day = currValue.getDate();
   const year = currValue.getFullYear();
   return { day, month, year };

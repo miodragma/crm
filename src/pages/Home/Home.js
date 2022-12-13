@@ -19,6 +19,7 @@ import addIcon from '../../assets/add.png';
 import { dateToTimestamp } from '../../utils/dateToTimestamp';
 
 import classes from './Home.module.scss';
+import { customersActions } from '../../components/Customers/store/customers-slice';
 
 let isMounted = false;
 
@@ -39,6 +40,11 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllCustomers(allCustomersSettings))
+
+    return () => {
+      dispatch(customersActions.resetCustomersSettings('allCustomersSettings'))
+      dispatch(customersActions.resetCustomersSettings('potentialCustomersSettings'))
+    }
   }, [allCustomersSettings, dispatch])
 
   useEffect(() => {
