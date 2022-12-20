@@ -32,6 +32,8 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(customersActions.resetCustomersSettings('allCustomersSettings'))
+    dispatch(customersActions.resetCustomersSettings('potentialCustomersSettings'))
     if (!isMounted) {
       dispatch(fetchAllCities());
       isMounted = true;
@@ -40,11 +42,6 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllCustomers(allCustomersSettings))
-
-    return () => {
-      dispatch(customersActions.resetCustomersSettings('allCustomersSettings'))
-      dispatch(customersActions.resetCustomersSettings('potentialCustomersSettings'))
-    }
   }, [allCustomersSettings, dispatch])
 
   useEffect(() => {

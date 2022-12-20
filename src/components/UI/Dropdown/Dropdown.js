@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { isPaidDropdownList } from '../../../config/dropdown-list';
 
@@ -6,10 +6,16 @@ import classes from './Dropdown.module.scss';
 
 const Dropdown = props => {
 
-  const { onChangePaidValue } = props;
+  const { onChangeValue, currValue } = props;
 
   const [value, setValue] = useState('All - Paid / Not Paid');
   const [showDropdown, setShowDropdown] = useState(false);
+
+  useEffect(() => {
+    if (currValue === '') {
+      setValue('All - Paid / Not Paid')
+    }
+  }, [currValue]);
 
   const onClickInput = e => {
     setShowDropdown(true);
@@ -18,7 +24,7 @@ const Dropdown = props => {
   const onClickItem = item => {
     setValue(item.label);
     const findValue = `${isPaidDropdownList.find(currItem => currItem.label === item.label).value}`;
-    onChangePaidValue(findValue);
+    onChangeValue(findValue);
     setTimeout(() => setShowDropdown(false), 200);
   };
 

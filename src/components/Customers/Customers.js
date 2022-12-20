@@ -158,7 +158,7 @@ const Customers = props => {
                type='text'/>
         <Input onChangeValue={onChangeSettingsValue} value={state.email} name='email' placeholder='Email' type='email'/>
         <CityInput changeCity={onChangeCityValue} isLabel={false} className={classes.citiesSearch} value={state.city}/>
-        <Dropdown onChangePaidValue={onChangePaidValue}/>
+        <Dropdown onChangeValue={onChangePaidValue} currValue={state.isPaid}/>
         {typeSettings === 'allCustomersSettings' &&
           <Input onChangeValue={onChangeSettingsValue} value={state.remindOn} name='remindOn' placeholder='RemindOn'
                  type='date'/>}
