@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Input from '../UI/Input/Input';
@@ -6,8 +6,6 @@ import CityInput from '../UI/CityInput/CityInput';
 
 import { dateToTimestamp, formatTime, getDateData, timestampToDate } from '../../utils/dateToTimestamp';
 import { customerModalFormFields } from '../../config/customer-modal-form-fields';
-
-import addIconTransparent from '../../assets/add-transparent.png';
 
 import classes from './AddNewCustomer.module.scss';
 
@@ -32,7 +30,7 @@ const AddNewCustomer = props => {
 
   const [editMode, setEditMode] = useState(false);
   const [isChangeCustomerData, setIsChangeCustomerData] = useState(false);
-  const [noteToExpand, setNoteToExpand] = useState(null);
+  const [newNote, setNewNote] = useState(null);
 
   useEffect(() => {
     if (customer.id) {
@@ -41,6 +39,10 @@ const AddNewCustomer = props => {
         const { year, month, day } = getDateData(+customer.remindOn);
         remindOn = `${year}-${month}-${("0" + day).slice(-2)}`
       }
+      let notes = [...customer.notes];
+      if (customer.notes.length) {
+        notes = notes?.sort((a, b) => a.date < b.date ? -1 : 1);
+      }
       setState({
         firstName: customer.firstName,
         lastName: customer.lastName,
@@ -48,7 +50,7 @@ const AddNewCustomer = props => {
         email: customer.email,
         isPaid: customer.isPaid,
         city: customer.city,
-        notes: customer.notes,
+        notes,
         remindOn
       })
     }
@@ -56,8 +58,13 @@ const AddNewCustomer = props => {
 
   const onSubmitNewCustomerHandler = () => {
     let currState = { ...state };
+    let currNotes = [...currState.notes];
+    if (newNote && newNote?.value) {
+      currNotes = [...currNotes, newNote];
+      currState = { ...currState, notes: currNotes };
+    }
     if (currState.remindOn) {
-      currState = { ...state, remindOn: dateToTimestamp(currState.remindOn) }
+      currState = { ...currState, remindOn: dateToTimestamp(currState.remindOn) }
     }
     if (customerId) {
       onSubmit({ ...currState, id: customerId })
@@ -68,16 +75,9 @@ const AddNewCustomer = props => {
 
   const onChangeNewNoteValue = (e, index) => {
     setIsChangeCustomerData(true);
-    const value = e.target.value
-    setState({
-      ...state,
-      notes: state.notes.map((note, i) => {
-        if (i === index) {
-          return { ...note, value }
-        }
-        return note;
-      })
-    })
+    const value = e.target.value;
+    const newNoteState = { createdBy: fullName, date: Date.now(), value };
+    setNewNote(newNoteState);
   }
 
   const onChangeValue = useCallback(e => {
@@ -105,42 +105,43 @@ const AddNewCustomer = props => {
     setEditMode(e.target.checked);
   };
 
-  const expandCustomer = noteDate => {
-    if (noteToExpand === noteDate) {
-      setNoteToExpand(null);
-      return;
-    }
-    setNoteToExpand(noteDate)
-  };
-
   let customerNotes;
   if (customerId) {
+    const calcTime = date => timestampToDate(date) === timestampToDate(new Date().getTime());
     customerNotes = state?.notes?.map((note, i) => {
+      const isToday = calcTime(note.date);
+      const isDateTime = isToday && !calcTime(state?.notes[i - 1]?.date) ? 'Today' :
+        timestampToDate(note.date) !== timestampToDate(state?.notes[i - 1]?.date) ? timestampToDate(note.date) : '';
       return (
         note && <div
-          key={note.date}
-          className={`${classes.customerNoteContent} ${noteToExpand === note.date ? classes.expandedCustomer : ''}`}>
-          <div onClick={() => expandCustomer(note.date)}><p>{note.createdBy}</p>
-            <p>{note.date ? `${timestampToDate(note.date)} - ${formatTime(new Date(note.date))}` : ''}</p>
+          key={note.date}>
+          {isDateTime && <p className={`${isDateTime ? classes.divider : ''}`}>{isDateTime}</p>}
+          <div id={i === state?.notes.length - 1 ? 'newestElement' : note.date}>
+            <p>{note.createdBy}</p>
+            <p>{note.date ? `${formatTime(new Date(note.date))}` : ''}</p>
           </div>
-          <textarea readOnly={customer.notes[i]?.date === note.date} onChange={(e) => onChangeNewNoteValue(e, i)}
-                    value={note.value}></textarea>
+          <p>{note.value}</p>
         </div>)
     });
+    setTimeout(() => {
+      const element = document.querySelector('#newestElement');
+      if (element) {
+        element.scrollIntoView({ block: "start", inline: "nearest", behavior: 'auto' });
+      }
+    }, 500);
   }
 
-  const addNewNoteHandler = () => {
-    const newNoteState = [{ createdBy: fullName, date: Date.now(), value: '' }, ...state.notes]
-    setState({ ...state, notes: newNoteState })
-  };
-
-  const notes = <div>
+  const notes = <Fragment>
     <div className={classes.notesHeader}>
       <h3>Notes</h3>
-      <img onClick={addNewNoteHandler} src={addIconTransparent} alt="add-icon"/>
     </div>
-    {customerNotes}
-  </div>;
+    <div>
+      <div className={classes.notesContent}>{customerNotes}</div>
+      <textarea className={classes.textareaNewNote} placeholder='Type here...' autoFocus={true}
+                onChange={(e) => onChangeNewNoteValue(e)}
+                value={newNote?.value}></textarea>
+    </div>
+  </Fragment>;
 
   const isDisabled = (!(state.firstName || state.lastName || state.telephone) || (customerId && !editMode && !isChangeCustomerData)) || isLoader;
 

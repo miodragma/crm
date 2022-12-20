@@ -120,54 +120,59 @@ textarea {
   align-items: center;
   justify-content: space-between;
   width: 520px;
+  margin-bottom: 16px;
+}
 
-  & img {
-    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
-    border-radius: 50%;
-    cursor: pointer;
-    width: 35px;
-    transition: all 200ms ease;
+.notesContent {
+  max-height: 190px;
+  height: 190px;
+  overflow: auto;
+  padding-right: 16px;
+  margin-bottom: 16px;
+  line-height: 1.3rem;
 
-    &:hover {
-      transform: scale(1.1);
+  & > div {
+    padding-bottom: 16px;
+
+    & .divider {
+      border-bottom: 1px solid $greyColor;
+      text-align: center;
+      padding-bottom: 3px;
+      margin-bottom: 10px;
+      color: grey;
+    }
+
+    &:not(:first-child) {
+      margin: 16px 0;
+    }
+
+    & div:nth-of-type(1) {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    & div {
+      margin-bottom: 8px;
+      color: $primaryColor;
     }
   }
 }
 
-.customerNoteContent {
-  max-height: 53px;
-  overflow: hidden;
-  padding: 10px;
-  margin-top: 16px;
-  border-radius: 7px;
-  border: unset;
-  box-shadow: rgb(0 0 0 / 10%) 0 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
-  @include mixins.disableSelectText;
-  transition: all 400ms ease-in;
-
-  & div {
-    cursor: pointer;
-    color: $primaryColor;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-
-    &:hover {
-      color: $primaryDark;
-    }
-  }
-
-  &.expandedCustomer {
-    max-height: 520px;
-    transition: all 400ms ease-in;
-  }
+.textareaNewNote {
+  height: 75px;
+  margin-right: 16px;
+  margin-top: 0;
 }
 
 .notesWrapper {
-  padding: 16px;
-  border: 1px solid $greyColor;
-  border-radius: 7px;
+  padding: 0 0 16px 10px;
+  max-width: 545px;
+
+  & > div:nth-of-type(2) {
+    padding: 16px 0 16px 16px;
+    border: 1px solid #e3e3e3;
+    border-radius: 7px;
+  }
 }
 
 .isPaidContent {
