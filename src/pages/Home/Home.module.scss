@@ -2,8 +2,6 @@
 @import "../../scss/variables";
 
 .home {
-  overflow-y: auto;
-  height: 93vh;
   padding: 32px 32px 100px 32px;
   @include mixins.pageAnimation;
 

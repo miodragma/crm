@@ -23,7 +23,6 @@ code {
 html, body, #root {
   @include mixins.reset;
   background-color: $backgroundColor;
-  overflow: hidden !important;
   font-size: $defaultFontSize;
 }
 

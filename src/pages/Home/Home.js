@@ -45,8 +45,6 @@ const Home = () => {
   }, [allCustomersSettings, dispatch])
 
   useEffect(() => {
-
-    // console.log(dateToTimestamp(date))
     dispatch(getAllPotentialCustomers({ ...potentialCustomersSettings, remindOn: dateToTimestamp(new Date()) }))
   }, [potentialCustomersSettings, dispatch])
 
