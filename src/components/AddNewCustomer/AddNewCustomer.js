@@ -52,7 +52,13 @@ const AddNewCustomer = props => {
         city: customer.city,
         notes,
         remindOn
-      })
+      });
+      setTimeout(() => {
+        const element = document.querySelector('#newestElement');
+        if (element) {
+          element.scrollIntoView({ block: "start", inline: "nearest", behavior: 'auto' });
+        }
+      }, 500);
     }
   }, [customer]);
 
@@ -123,12 +129,6 @@ const AddNewCustomer = props => {
           <p>{note.value}</p>
         </div>)
     });
-    setTimeout(() => {
-      const element = document.querySelector('#newestElement');
-      if (element) {
-        element.scrollIntoView({ block: "start", inline: "nearest", behavior: 'auto' });
-      }
-    }, 500);
   }
 
   const notes = <Fragment>
