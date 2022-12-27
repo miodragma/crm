@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Input from '../UI/Input/Input';
@@ -33,9 +33,9 @@ const Customers = props => {
   const dispatch = useDispatch();
   const debounceTimer = useRef(null);
 
-  const onClickCustomerHandler = customerId => {
+  const onClickCustomerHandler = useCallback(customerId => {
     editCustomer({ customerId, typeSettings });
-  }
+  }, [editCustomer, typeSettings])
 
   const isContacted = customer => {
     return customer.notes.some(note => {
@@ -48,7 +48,7 @@ const Customers = props => {
     })
   };
 
-  const currentCustomers = customersData.customers.map((customer, i) => {
+  const currentCustomers = useMemo(() => customersData.customers.map((customer, i) => {
     return (
       <tr key={`${customer.id}${customer.remindOn}${customer.createdAt}${typeSettings}`}
           onClick={() => onClickCustomerHandler(customer.id)}>
@@ -63,7 +63,7 @@ const Customers = props => {
           <td className={classes.checkmark}>{isContacted(customer) && <img src={checkmark} alt="checkmark"/>}</td>}
       </tr>
     )
-  });
+  }), [customersData.customers, onClickCustomerHandler, typeSettings]);
 
   const onChangePageHandler = e => {
     const newPage = e.target.value
