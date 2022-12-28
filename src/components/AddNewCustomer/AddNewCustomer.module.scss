@@ -252,3 +252,19 @@ textarea {
     background: #f7f6f6;
   }
 }
+
+.calendarInputWrapper {
+  @include mixins.calendarInput;
+
+  & div {
+    top: 10px;
+
+    & img.calendarIcon {
+      right: 16px;
+    }
+
+    & input {
+      right: 18px;
+    }
+  }
+}

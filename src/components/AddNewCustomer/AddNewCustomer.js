@@ -8,6 +8,7 @@ import { dateToTimestamp, formatTime, getDateData, timestampToDate } from '../..
 import { customerModalFormFields } from '../../config/customer-modal-form-fields';
 
 import classes from './AddNewCustomer.module.scss';
+import calendar from '../../assets/calendar.png';
 
 const AddNewCustomer = props => {
 
@@ -145,13 +146,31 @@ const AddNewCustomer = props => {
 
   const isDisabled = (!(state.firstName || state.lastName || state.telephone) || (customerId && !editMode && !isChangeCustomerData)) || isLoader;
 
+  const convertDate = val => {
+    const date = getDateData(val);
+    return val ? `${date.day}-${date.month}-${date.year}` : ''
+  }
+
   const customerFormFields = customerModalFormFields.map(field => {
     return (
       <div key={field.name} className={classes.inputWrapper}>
         <label>{field.label}</label>
-        <Input disabled={!editMode && customerId} type={field.type} name={field.name} value={state[field.name]}
-               placeholder={field.label}
-               onChangeValue={onChangeValue}/>
+        {field.type !== 'date' ?
+          <Input disabled={!editMode && customerId} type={field.type} name={field.name} value={state[field.name]}
+                 placeholder={field.label}
+                 onChangeValue={onChangeValue}/>
+          :
+          <div className={classes.calendarInputWrapper}>
+            <Input readonly={true} value={convertDate(state[field.name])} placeholder='Remind on'
+                   type='text'/>
+            <div>
+              <img className={classes.calendarIcon} src={calendar} alt="calendar"/>
+              <input disabled={!editMode && customerId} onChange={onChangeValue} value={state[field.name]}
+                     name='remindOn'
+                     type='date'/>
+            </div>
+          </div>
+        }
       </div>)
   })
 

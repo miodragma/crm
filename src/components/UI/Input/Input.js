@@ -14,7 +14,8 @@ const Input = props => {
     value,
     name,
     isBlur = false,
-    disabled = false
+    disabled = false,
+    readonly = false
   } = props;
 
   const inputRef = useRef();
@@ -37,6 +38,7 @@ const Input = props => {
 
   return (
     <input
+      readOnly={readonly}
       disabled={disabled}
       autoComplete='off'
       name={name}

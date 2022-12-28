@@ -10,6 +10,7 @@ import { dateToTimestamp, getDateData, timestampToDate } from '../../utils/dateT
 import upIcon from '../../assets/up.png';
 import downIcon from '../../assets/down.png';
 import checkmark from '../../assets/checkmark.png';
+import calendar from '../../assets/calendar.png';
 
 import classes from './Customers.module.scss';
 import CityInput from '../UI/CityInput/CityInput';
@@ -126,9 +127,10 @@ const Customers = props => {
   }, [getSuggestions]);
 
   const onChangeSettingsValue = useCallback(e => {
+    const event = { target: { value: e.target.value, name: e.target.name } }
     clearTimeout(debounceTimer.current);
     debounceTimer.current = setTimeout(
-      getSuggestions.bind(null, e),
+      getSuggestions.bind(null, event),
       400
     )
   }, [getSuggestions]);
@@ -147,6 +149,11 @@ const Customers = props => {
     dispatch(customersActions.resetCustomersSettings(typeSettings))
   }
 
+  const convertDate = val => {
+    const date = getDateData(val);
+    return val ? `${date.day}-${date.month}-${date.year}` : ''
+  }
+
   return (
     <div>
       <div className={classes.inputsContent}>
@@ -160,8 +167,16 @@ const Customers = props => {
         <CityInput changeCity={onChangeCityValue} isLabel={false} className={classes.citiesSearch} value={state.city}/>
         <Dropdown onChangeValue={onChangePaidValue} currValue={state.isPaid}/>
         {typeSettings === 'allCustomersSettings' &&
-          <Input onChangeValue={onChangeSettingsValue} value={state.remindOn} name='remindOn' placeholder='RemindOn'
-                 type='date'/>}
+          <div className={classes.calendarInputWrapper}>
+            <Input readonly={true} value={convertDate(state.remindOn)} placeholder='Contact at'
+                   type='text'/>
+            <div>
+              <img className={classes.calendarIcon} src={calendar} alt="calendar"/>
+              <input onChange={onChangeSettingsValue} value={state.remindOn} name='remindOn'
+                     type='date'/>
+            </div>
+          </div>
+        }
       </div>
       <div className={classes.customersContentWrapper}>
         <div className={classes.customersContent}>

@@ -167,3 +167,42 @@
     border: 1px solid $primaryColor;
   }
 }
+
+@mixin calendarInput {
+  position: relative;
+
+  & div {
+    position: absolute;
+    top: 17px;
+    width: 100%;
+
+    & img.calendarIcon {
+      position: absolute;
+      right: 28px;
+      width: 25px;
+      top: 5px;
+    }
+
+    & input {
+      position: absolute;
+      top: 7px;
+      margin: 0;
+      width: 22px;
+      right: 29px;
+      opacity: 0;
+
+      &[type="date"]::-webkit-calendar-picker-indicator {
+        background: transparent;
+        bottom: 0;
+        color: transparent;
+        cursor: pointer;
+        height: auto;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: auto;
+      }
+    }
+  }
+}

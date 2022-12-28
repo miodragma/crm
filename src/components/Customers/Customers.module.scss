@@ -161,3 +161,7 @@
     background: $lightColor;
   }
 }
+
+.calendarInputWrapper {
+  @include mixins.calendarInput;
+}
