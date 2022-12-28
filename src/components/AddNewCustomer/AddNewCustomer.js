@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Input from '../UI/Input/Input';
 import CityInput from '../UI/CityInput/CityInput';
 
-import { dateToTimestamp, formatTime, getDateData, timestampToDate } from '../../utils/dateToTimestamp';
+import { dateToTimestamp, formatTime, inputTypeDate, timestampToDate } from '../../utils/dateToTimestamp';
 import { customerModalFormFields } from '../../config/customer-modal-form-fields';
 
 import classes from './AddNewCustomer.module.scss';
@@ -37,8 +37,7 @@ const AddNewCustomer = props => {
     if (customer.id) {
       let remindOn = '';
       if (customer.remindOn) {
-        const { year, month, day } = getDateData(+customer.remindOn);
-        remindOn = `${year}-${month}-${("0" + day).slice(-2)}`
+        remindOn = inputTypeDate(+customer.remindOn)
       }
       let notes = [...customer.notes];
       if (customer.notes.length) {
@@ -146,11 +145,6 @@ const AddNewCustomer = props => {
 
   const isDisabled = (!(state.firstName || state.lastName || state.telephone) || (customerId && !editMode && !isChangeCustomerData)) || isLoader;
 
-  const convertDate = val => {
-    const date = getDateData(val);
-    return val ? `${date.day}-${date.month}-${date.year}` : ''
-  }
-
   const customerFormFields = customerModalFormFields.map(field => {
     return (
       <div key={field.name} className={classes.inputWrapper}>
@@ -161,10 +155,11 @@ const AddNewCustomer = props => {
                  onChangeValue={onChangeValue}/>
           :
           <div className={classes.calendarInputWrapper}>
-            <Input readonly={true} value={convertDate(state[field.name])} placeholder='Remind on'
+            <Input disabled={!editMode && customerId} readonly={true}
+                   value={timestampToDate(new Date(state[field.name]).getTime())} placeholder='Remind on'
                    type='text'/>
             <div>
-              <img className={classes.calendarIcon} src={calendar} alt="calendar"/>
+              <img src={calendar} alt="calendar"/>
               <input disabled={!editMode && customerId} onChange={onChangeValue} value={state[field.name]}
                      name='remindOn'
                      type='date'/>

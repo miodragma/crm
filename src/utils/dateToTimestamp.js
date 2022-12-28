@@ -15,7 +15,12 @@ export const getDateData = value => {
 
 export const timestampToDate = value => {
   const { year, month, day } = getDateData(+value)
-  return `${("0" + day).slice(-2)}-${month}-${year}`
+  return value ? `${("0" + day).slice(-2)}-${month}-${year}` : '';
+}
+
+export const inputTypeDate = val => {
+  const dateToInput = getDateData(val);
+  return val ? `${dateToInput.year}-${dateToInput.month}-${("0" + dateToInput.day).slice(-2)}` : '';
 }
 
 const timeOptions = { hour12: true, hour: 'numeric', minute: '2-digit', hour12suffix: true };

@@ -85,6 +85,7 @@ const Home = () => {
           <img onClick={onAddNewCustomerHandler} src={addIcon} alt="add"/>
         </div>
         <Customers
+          customerSettings={allCustomersSettings}
           editCustomer={onEditCustomerHandler}
           customersData={customers.allCustomers}
           customersPaging={customers.allCustomersPaging}
@@ -95,6 +96,7 @@ const Home = () => {
           <h1>Potential Customers</h1><sup>Today</sup>
         </div>
         <Customers
+          customerSettings={potentialCustomersSettings}
           editCustomer={onEditCustomerHandler}
           customersData={customers.potentialCustomers}
           customersPaging={customers.potentialCustomersPaging}

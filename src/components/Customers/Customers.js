@@ -5,7 +5,7 @@ import Input from '../UI/Input/Input';
 
 import { customersActions } from './store/customers-slice';
 
-import { dateToTimestamp, getDateData, timestampToDate } from '../../utils/dateToTimestamp';
+import { dateToTimestamp, getDateData, inputTypeDate, timestampToDate } from '../../utils/dateToTimestamp';
 
 import upIcon from '../../assets/up.png';
 import downIcon from '../../assets/down.png';
@@ -16,21 +16,21 @@ import classes from './Customers.module.scss';
 import CityInput from '../UI/CityInput/CityInput';
 import Dropdown from '../UI/Dropdown/Dropdown';
 
-export const initialState = {
-  firstName: '',
-  lastName: '',
-  telephone: '',
-  email: '',
-  city: '',
-  isPaid: '',
-  remindOn: ''
-}
+// export const initialState = {
+//   firstName: '',
+//   lastName: '',
+//   telephone: '',
+//   email: '',
+//   city: '',
+//   isPaid: '',
+//   remindOn: ''
+// }
 
 const Customers = props => {
 
-  const { customersData, customersPaging, typeSettings, editCustomer } = props;
+  const { customersData, customersPaging, typeSettings, editCustomer, customerSettings } = props;
   const [page, setPage] = useState(1);
-  const [state, setState] = useState(initialState);
+  // const [state, setState] = useState(initialState);
   const dispatch = useDispatch();
   const debounceTimer = useRef(null);
 
@@ -114,7 +114,7 @@ const Customers = props => {
     if (name === 'remindOn' && value) {
       data.value = dateToTimestamp(value)
     }
-    setState(prevState => ({ ...prevState, [name]: value }))
+    // setState(prevState => ({ ...prevState, [name]: value }))
     dispatch(customersActions.onChangeSettingsValue(data));
   }, [dispatch, typeSettings]);
 
@@ -145,34 +145,34 @@ const Customers = props => {
 
   const resetSettingsHandler = () => {
     setPage(1);
-    setState(initialState);
+    // setState(initialState);
     dispatch(customersActions.resetCustomersSettings(typeSettings))
-  }
-
-  const convertDate = val => {
-    const date = getDateData(val);
-    return val ? `${date.day}-${date.month}-${date.year}` : ''
   }
 
   return (
     <div>
       <div className={classes.inputsContent}>
-        <Input onChangeValue={onChangeSettingsValue} value={state.firstName} name='firstName' placeholder='First name'
+        <Input onChangeValue={onChangeSettingsValue} value={customerSettings.firstName} name='firstName'
+               placeholder='First name'
                type='text'/>
-        <Input onChangeValue={onChangeSettingsValue} value={state.lastName} name='lastName' placeholder='Last name'
+        <Input onChangeValue={onChangeSettingsValue} value={customerSettings.lastName} name='lastName'
+               placeholder='Last name'
                type='text'/>
-        <Input onChangeValue={onChangeSettingsValue} value={state.telephone} name='telephone' placeholder='Telephone'
+        <Input onChangeValue={onChangeSettingsValue} value={customerSettings.telephone} name='telephone'
+               placeholder='Telephone'
                type='text'/>
-        <Input onChangeValue={onChangeSettingsValue} value={state.email} name='email' placeholder='Email' type='email'/>
-        <CityInput changeCity={onChangeCityValue} isLabel={false} className={classes.citiesSearch} value={state.city}/>
-        <Dropdown onChangeValue={onChangePaidValue} currValue={state.isPaid}/>
+        <Input onChangeValue={onChangeSettingsValue} value={customerSettings.email} name='email' placeholder='Email'
+               type='email'/>
+        <CityInput changeCity={onChangeCityValue} isLabel={false} className={classes.citiesSearch}
+                   value={customerSettings.city}/>
+        <Dropdown onChangeValue={onChangePaidValue} currValue={customerSettings.isPaid}/>
         {typeSettings === 'allCustomersSettings' &&
           <div className={classes.calendarInputWrapper}>
-            <Input readonly={true} value={convertDate(state.remindOn)} placeholder='Contact at'
+            <Input readonly={true} value={timestampToDate(customerSettings.remindOn)} placeholder='Contact at'
                    type='text'/>
             <div>
-              <img className={classes.calendarIcon} src={calendar} alt="calendar"/>
-              <input onChange={onChangeSettingsValue} value={state.remindOn} name='remindOn'
+              <img src={calendar} alt="calendar"/>
+              <input onChange={onChangeSettingsValue} value={inputTypeDate(customerSettings.remindOn)} name='remindOn'
                      type='date'/>
             </div>
           </div>

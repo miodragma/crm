@@ -8,8 +8,9 @@ const customersSettings = {
   lastName: '',
   telephone: '',
   email: '',
+  city: '',
   isPaid: 'all',
-  city: ''
+  remindOn: ''
 }
 
 const customersPaging = {
