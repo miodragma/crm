@@ -21,7 +21,6 @@ const Customers = props => {
 
   const { customersData, customersPaging, typeSettings, editCustomer, customerSettings } = props;
   const [page, setPage] = useState(1);
-  // const [state, setState] = useState(initialState);
   const dispatch = useDispatch();
   const debounceTimer = useRef(null);
 
@@ -105,7 +104,6 @@ const Customers = props => {
     if (name === 'remindOn' && value) {
       data.value = dateToTimestamp(value)
     }
-    // setState(prevState => ({ ...prevState, [name]: value }))
     dispatch(customersActions.onChangeSettingsValue(data));
   }, [dispatch, typeSettings]);
 
@@ -136,7 +134,6 @@ const Customers = props => {
 
   const resetSettingsHandler = () => {
     setPage(1);
-    // setState(initialState);
     dispatch(customersActions.resetCustomersSettings(typeSettings))
   }
 
