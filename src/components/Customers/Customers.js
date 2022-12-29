@@ -7,24 +7,15 @@ import { customersActions } from './store/customers-slice';
 
 import { dateToTimestamp, getDateData, inputTypeDate, timestampToDate } from '../../utils/dateToTimestamp';
 
-import upIcon from '../../assets/up.png';
-import downIcon from '../../assets/down.png';
+import next from '../../assets/next.png';
+import prev from '../../assets/prev.png';
 import checkmark from '../../assets/checkmark.png';
 import calendar from '../../assets/calendar.png';
 
-import classes from './Customers.module.scss';
 import CityInput from '../UI/CityInput/CityInput';
 import Dropdown from '../UI/Dropdown/Dropdown';
 
-// export const initialState = {
-//   firstName: '',
-//   lastName: '',
-//   telephone: '',
-//   email: '',
-//   city: '',
-//   isPaid: '',
-//   remindOn: ''
-// }
+import classes from './Customers.module.scss';
 
 const Customers = props => {
 
@@ -202,12 +193,12 @@ const Customers = props => {
           <p>Total: {customersData.total}</p>
           <div>
             <div className={classes.pageableButtons}>
+              <img className={+page === 1 ? classes.disablePageButton : ''} src={prev} alt="prev"
+                   onClick={buttonDownPageHandler}/>
               <img
                 className={(+page === customersPaging.lastPage || customersData.total === 0) ? classes.disablePageButton : ''}
-                src={upIcon} alt="up"
+                src={next} alt="next"
                 onClick={buttonUpPageHandler}/>
-              <img className={+page === 1 ? classes.disablePageButton : ''} src={downIcon} alt="down"
-                   onClick={buttonDownPageHandler}/>
             </div>
             <p>Page: </p>
             <input size='4' className={classes.pageInput} type="text" value={page} onChange={onChangePageHandler}/>
