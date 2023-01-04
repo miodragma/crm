@@ -20,6 +20,10 @@
     & thead {
       position: sticky;
       top: -1px;
+
+      & tr {
+        cursor: alias;
+      }
     }
   }
 
