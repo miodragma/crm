@@ -195,10 +195,10 @@ const AddNewCustomer = props => {
         <CityInput disabled={!editMode && customerId} className={classes.inputWrapper} changeCity={onChangeCityHandler}
                    value={state.city}/>
         <div className={classes.isPaidContent}>
-          <label className={`${classes.isPaidContainer} ${(!editMode && customerId) && classes.disabledSpan}`}>Is Paid
+          <label className={`${classes.checkbox} ${(!editMode && customerId) && classes.disabledSpan}`}>Is Paid
             <input disabled={!editMode && customerId} type='checkbox' checked={state.isPaid}
                    onChange={onChangeIsPaidHandler}/>
-            <span className={`${classes.checkmark} ${(!editMode && customerId) && classes.disabledSpan}`}></span>
+            <span className={`${(!editMode && customerId) && classes.disabledSpan}`}></span>
           </label>
         </div>
       </form>
